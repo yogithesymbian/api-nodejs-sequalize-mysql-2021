@@ -1,6 +1,20 @@
-# # nodeJS-jwt-auth-sequalize-mysql
+# api-nodejs-sequalize-mysql-2021
 
-@ donation :D
+```
+git clone https://github.com/yogithesymbian/api-nodejs-sequalize-mysql-2021.git
+```
+
+### database configuration
+- `./app/config/config.json`
+
+### port listening
+`const PORT = process.env.PORT || 3001;`
+### cors
+`var corsOptions = {
+  origin: "http://localhost:3001",
+};`
+
+## endpoint
 `/api/auth/signup`
 
 ```
@@ -26,12 +40,15 @@ raw json
 }
 ```
 
-`/api/test/all` public access
-`/api/test/user` user access
-`/api/test/mod` moderator access
-`/api/test/admin` admin access
+1. `/api/test/all` public access
+2. `/api/test/user` user access
+3. `/api/test/mod` moderator access
+4. `/api/test/admin` admin access
 
+----
 `x-access-token :` `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiaWF0IjoxNjA2MDE1NjU5LCJleHAiOjE2MDYxMDIwNTl9.pUya-Wqm8sVmadkxfGvYL7N0Y3d-18dT3IaZtSLUMS4`
+
+# SET UP SERVER
 ## Aliyun Linux Server | HTTPD/APACHE
 ```
 #/etc/systemd/system/node-app-1.service
@@ -84,7 +101,7 @@ git pull
 sudo systemctl restart node-app-1
 ```
 
-## heroku
+## HEROKU
 
 Start your app locally using the heroku local command, which is installed as part of the Heroku CLI.
 `heroku local web`
@@ -117,43 +134,40 @@ git push heroku master
        http://arcane-lowlands-8408.herokuapp.com deployed to Heroku
 ```
 
-- Yogi Arif Widodo
-- @yogithesymbian
-
 
 ---
 
-modification guide
+## modification guide
 1. make a model, and register the model into `/app/models/index.js`.
+- `deprecated : use new modification guide to create a model `
 2. create a controller (for consuming in routes on laters).
 3. create routes in `/app/routes` and register the routes in `/server.js` .
 
 
-# new modification guide
-`npm install --save sequelize`
-`npm install --save-dev sequelize-cli`
-`npm sequelize-cli init`
-`npm install mysql2`
-<!--  -->
+## new modification guide note list short command
+------
+1. `npm install --save sequelize`
+2. `npm install --save-dev sequelize-cli`
+3. `npm sequelize-cli init`
+4. `npm install mysql2`
+-------
+1. `npx sequelize-cli model:generate --name user --attributes first_name:string,last_name:string,email:string`
+-------
+1. `npx sequelize-cli db:migrate`
+2. `npx sequelize-cli db:migrate:undo`
+3. `npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js`
+-------
+1. `npx sequelize-cli seed:generate --name demo-user`
+2. `npx sequelize-cli db:seed:all`
+3. `npx sequelize-cli db:seed:undo`
+4. `npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data`
+5. `npx sequelize-cli db:seed:undo:all`
+-------
 
-`npx sequelize-cli model:generate --name user --attributes first_name:string,last_name:string,email:string`
-<!--  -->
-`npx sequelize-cli db:migrate`
-`npx sequelize-cli db:migrate:undo`
-`npx sequelize-cli db:migrate:undo:all --to XXXXXXXXXXXXXX-create-posts.js`
+### skeleton migration only
+1. `npx sequelize-cli migration:generate --name migration-skeleton`
 
-<!--  -->
-`npx sequelize-cli seed:generate --name demo-user`
-`npx sequelize-cli db:seed:all`
-`npx sequelize-cli db:seed:undo`
-`npx sequelize-cli db:seed:undo --seed name-of-seed-as-in-data`
-`npx sequelize-cli db:seed:undo:all`
-<!--  -->
-
-<!--  skeleton migration only -->
-`npx sequelize-cli migration:generate --name migration-skeleton`
-
-aliases
+## aliases
 ```
 alias nsc="npx sequelize-cli"
 alias nsc-m-generate="npx sequelize-cli model:generate --name"
