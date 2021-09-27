@@ -170,8 +170,16 @@ git push heroku master
 ## aliases
 ```
 alias nsc="npx sequelize-cli"
+<!-- FOR MODEL -->
 alias nsc-m-generate="npx sequelize-cli model:generate --name"
 alias nsc-migrate="npx sequelize-cli db:migrate"
+alias nsc-migrateu="npx sequelize-cli db:migrate:undo:all"
+
+<!-- FOR SEEDER -->
 alias nsc-s-generate="npx sequelize-cli seed:generate --name"
 alias nsc-seeder="npx sequelize-cli db:seed:all"
+alias nsc-seederu="npx sequelize-cli db:seed:undo:all"
+
+<!-- FOR RE-MIGRATE WITH SEEDER GENERATE ALL -->
+alias nsc-migrates="nsc-migrateu && nsc-migrate && nsc-seeder"
 ```

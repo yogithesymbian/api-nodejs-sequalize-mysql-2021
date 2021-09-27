@@ -37,26 +37,8 @@ fs
     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
   })
   .forEach(file => {
-    // const model = require(path.join(__dirname, file));
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes)
     db[model.name] = model;
-
-    // db.user = require("./user.js")(sequelize, Sequelize);
-    // const modelName = file.substring(0, file.indexOf('.'));
-    // const modelPath = "./" + file;
-    // console.log('model path : ', modelPath);
-    // console.log('model name : ', modelName);
-    // console.log('model db before : ', db.user_role);
-    // db.user_role = require("./" + file);
-    // console.log('model db after : ', db.user_role);
-    // db.user = require()
-    // const model = require(""+path.join(__dirname, file))(sequelize, Sequelize);
-    // console.log('model : ', path.join(__dirname, file));
-    // db[model.name] = model;
-    // console.log('model : ', db[model.name]);
-    // db.user = require("./user.js")(sequelize, Sequelize);
-    // db.role = require("./role.js")(sequelize, Sequelize);
-    // db.user_role = require("./user_role.js")(sequelize, Sequelize);
   });
 
 Object.keys(db).forEach(modelName => {
@@ -67,27 +49,5 @@ Object.keys(db).forEach(modelName => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-
-// TODO : register the model
-// db.user = require("./user.js")(sequelize, Sequelize);
-// db.role = require("./role.js")(sequelize, Sequelize);
-// db.user = require("./user.model.js")(sequelize, Sequelize);
-// db.role = require("./role.js")(sequelize, Sequelize);
-// db.role = require("./role.model.js")(sequelize, Sequelize);
-// db.post = require("./post.model.js")(sequelize, Sequelize);
-
-// TODO : relation set
-// db.role.belongsToMany(db.user, {
-//   through: "user_roles",
-//   // foreignKey: "role_id",
-//   // otherKey: "user_id",
-// });
-
-// db.user.belongsToMany(db.role, {
-//   through: "user_roles",
-//   // foreignKey: "user_id",
-//   // otherKey: "role_id",
-// });
 
 module.exports = db;
