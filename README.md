@@ -172,6 +172,10 @@ git push heroku master
 ### skeleton migration only
 1. `npx sequelize-cli migration:generate --name migration-skeleton`
 
+## using snippet
+for snippet just type the folder name first to trigger what for todo for example if you are in `auth.controller` we already known the folder is `controllers` so just type `cont` will trigger what todo.
+
+
 ## aliases
 ```
 alias nsc="npx sequelize-cli"
