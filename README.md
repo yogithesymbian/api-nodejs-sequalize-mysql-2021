@@ -4,6 +4,11 @@
 git clone https://github.com/yogithesymbian/api-nodejs-sequalize-mysql-2021.git
 ```
 
+`cd api-nodejs-sequalize-mysql-2021`
+
+`npm run dev`
+
+
 ### database configuration
 - `./app/config/config.json`
 
