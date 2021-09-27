@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": null,
-    "database": "bilingual_nodejs",
+    "database": "nodejs_db",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "define" : {
@@ -19,23 +19,35 @@
   "test": {
     "username": "root",
     "password": null,
-    "database": "bilingual_nodejs",
+    "database": "nodejs_db",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "define" : {
       "createdAt": "created_at",
       "updatedAt": "updated_at"
+    },
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "acquire": 30000,
+      "idle": 10000
     }
   },
   "production": {
     "username": "root",
     "password": null,
-    "database": "bilingual_nodejs",
+    "database": "nodejs_db",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "define" : {
       "createdAt": "created_at",
       "updatedAt": "updated_at"
+    },
+    "pool": {
+      "max": 5,
+      "min": 0,
+      "acquire": 30000,
+      "idle": 10000
     }
   }
 }
