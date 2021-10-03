@@ -1,4 +1,8 @@
 # api-nodejs-sequalize-mysql-2021
+### swagger
+![resources/static/assets/uploads/swagger1.png](/resources/static/assets/uploads/swagger1.png)
+![resources/static/assets/uploads/swagger2.png](/resources/static/assets/uploads/swagger2.png)
+
 
 ```
 git clone https://github.com/yogithesymbian/api-nodejs-sequalize-mysql-2021.git
