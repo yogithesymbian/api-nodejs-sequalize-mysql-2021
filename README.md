@@ -7,11 +7,11 @@
 ```
 git clone https://github.com/yogithesymbian/api-nodejs-sequalize-mysql-2021.git
 ```
-
-`cd api-nodejs-sequalize-mysql-2021`
-
-`npm run dev`
-
+----
+1. `cd api-nodejs-sequalize-mysql-2021`
+2. `nsc-migrates`
+3. `npm run dev`
+-----
 
 ### database configuration
 - `./app/config/config.json`
@@ -180,7 +180,7 @@ git push heroku master
 for snippet just type the folder name first to trigger what for todo for example if you are in `auth.controller` we already known the folder is `controllers` so just type `cont` will trigger what todo.
 
 
-## aliases
+## aliases .zsrhc | .bshrc
 ```
 alias nsc="npx sequelize-cli"
 <!-- FOR MODEL -->
