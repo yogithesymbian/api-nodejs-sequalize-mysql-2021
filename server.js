@@ -5,7 +5,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:3001",
+  origin: "*",
 };
 
 app.use(cors(corsOptions));
@@ -13,41 +13,19 @@ app.use(cors(corsOptions));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
+global.__basedir = __dirname; // global path
+
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// // development
-// const db = require("./app/models");
-// const Role = db.role;
-
-// db.sequelize.sync({ force: true }).then(() => {
-//   console.log("Drop and Resync Db");
-//   initial();
-// });
-
-// function initial() {
-//   Role.create({
-//     id: 1,
-//     name: "user",
-//   });
-
-//   Role.create({
-//     id: 2,
-//     name: "moderator",
-//   });
-
-//   Role.create({
-//     id: 3,
-//     name: "admin",
-//   });
-// }
+console.log('run mode on : ', process.env.NODE_ENV);
 
 // production
-const db = require("./app/models");
+const db = require("./src/db/models");
 
 // db.sequelize.sync();
 db.sequelize.sync().then((req) => {
-    console.log('req model : ', req.models);
+    // console.log('req model : ', req.models);
 });
 
 // simple route
@@ -56,8 +34,22 @@ app.get("/", (req, res) => {
 });
 
 // routes
-require("./app/routes/auth.routes")(app);
-require("./app/routes/user.routes")(app);
+require("./src/routes/auth.routes")(app);
+require("./src/routes/user.routes")(app);
+require("./src/routes/question.routes")(app);
+
+// const fs = require('fs');
+// const path = require('path');
+// const basename = path.basename(__filename);
+
+// fs
+//   .readdirSync(__dirname + '/app/routes')
+//   .filter(file => {
+//     return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
+//   })
+//   .forEach(file => {
+//     const data = require(path.join(__dirname + "/app/routes/", file));
+// });
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3001;
