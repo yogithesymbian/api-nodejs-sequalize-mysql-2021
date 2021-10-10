@@ -37,6 +37,7 @@ app.get("/", (req, res) => {
 require("./src/routes/auth.routes")(app);
 require("./src/routes/user.routes")(app);
 require("./src/routes/question.routes")(app);
+require("./src/routes/download.routes")(app);
 
 // const fs = require('fs');
 // const path = require('path');

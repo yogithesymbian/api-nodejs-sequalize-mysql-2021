@@ -104,7 +104,7 @@
     "prefix": "controller-init-handler",
     "body": [
       "var response = require(\"../utils/res\");",
-      "const { ${1:model1}, $model2 } = require(\"../models\");",
+      "const { ${1:model1}, $model2 } = require(\"../db/models\");",
       "",
       "exports.${1:model1}_show = async (req, res) => {",
       "  await ${1:model1}.",

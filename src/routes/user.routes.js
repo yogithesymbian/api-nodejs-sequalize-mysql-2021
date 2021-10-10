@@ -32,7 +32,7 @@ module.exports = function (app) {
 
   app.put(
     "/api/test/user/:id",
-    [authJwt.verifyToken, uploadFile.single("file")],
+    [authJwt.verifyToken, uploadFile.isImage.single("file")],
     controller.user_upload_image_update
   );
 };
