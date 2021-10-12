@@ -66,7 +66,7 @@ Description = node-app-1.service
 After network.target = node-app-1.service
 
 [Service]
-ExecStart=/usr/local/bin/node /var/www/html/api/nodejs/api-doa-nodeJS-express-mysql/server.js
+ExecStart=/usr/local/bin/npm run dev /var/www/html/api/nodejs/api-doa-nodeJS-express-mysql/server.js
 Restart=on-failure
 StandardOutput=syslog
 StandardError=syslog
