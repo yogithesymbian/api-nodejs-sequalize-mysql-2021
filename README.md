@@ -109,6 +109,11 @@ cd /opt/app
 git pull
 sudo systemctl restart node-app-1
 ```
+## firewall
+```
+sudo ufw allow 3000 // execute to allow on port
+sudo ufw status verbose // status
+```
 
 ## HEROKU
 
