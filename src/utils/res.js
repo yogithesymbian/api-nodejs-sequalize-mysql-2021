@@ -4,7 +4,7 @@ exports.ok = function (res, msg, data) {
   var data = {
     success: true,
     message: msg,
-    data,
+    ...data,
   };
   res.status(res.statusCode).send(data);
 };

@@ -1,20 +1,6 @@
 var response = require("../utils/res");
+var pagination = require("../utils/pagination");
 const { question, mission, score, user} = require("../db/models");
-
-const getPagination = (page, size) => {
-  const limit = size ? +size : 3;
-  const offset = page ? page * limit : 0;
-
-  return { limit, offset };
-};
-
-const getPagingData = (data, page, limit) => {
-  const { count: total_items, rows: scores } = data;
-  const current_page = page ? +page : 0;
-  const total_pages = Math.ceil(total_items / limit);
-
-  return { total_items, scores, total_pages, current_page };
-};
 
 exports.question_show = async (req, res) => {
   const id = req.params.id;
@@ -26,19 +12,22 @@ exports.question_show = async (req, res) => {
       include: mission
     }).then((questions) => {
       const resData = {
-        questions: questions,
+        results: questions,
       };
       response.ok(res, "load question data", resData);
     }).catch((err) => {
       console.log('questionShow findOne error : ', err);
     });
   } else {
-    await question.findAll({ include: mission })
+    const { page, size, title } = req.query;
+    const { limit, offset } = pagination.getPagination(page, size);
+    await question.findAndCountAll({
+      include: mission,
+      limit: limit
+    })
     .then( async (questions) => {
-      const resData = {
-        questions: questions,
-      };
-      response.ok(res, "load question data", resData);
+      const resData = pagination.getPagingData(questions, page, limit, );
+      response.ok(res, "load questions data", resData);
     }).catch((err) => {
       console.log('questionShow findAll error : ', err);
     });
@@ -55,7 +44,7 @@ exports.score_show = async (req, res) => {
       }
     }).then((scores) => {
       const resData = {
-        scores: scores,
+        results: scores,
       };
       response.ok(res, "load score data", resData);
     }).catch((err) => {
@@ -64,7 +53,7 @@ exports.score_show = async (req, res) => {
   } else {
     const { page, size, title } = req.query;
     // var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
-    const { limit, offset } = getPagination(page, size);
+    const { limit, offset } = pagination.getPagination(page, size);
 
     await score.findAndCountAll({
       include: user,
@@ -72,12 +61,8 @@ exports.score_show = async (req, res) => {
       limit, offset
     })
     .then( async (scores) => {
-      // const resData = {
-      //   scores: scores,
-      // };
-      const resData = getPagingData(scores, page, limit);
+      const resData = pagination.getPagingData(scores, page, limit, );
       response.ok(res, "load scores data", resData);
-      // response.ok(res, "load scores data", resData);
     }).catch((err) => {
       console.log('scoreShow findAll error : ', err);
     });
