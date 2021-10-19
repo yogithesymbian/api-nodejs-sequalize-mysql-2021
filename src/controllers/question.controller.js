@@ -1,6 +1,21 @@
 var response = require("../utils/res");
 const { question, mission, score, user} = require("../db/models");
 
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3;
+  const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+};
+
+const getPagingData = (data, page, limit) => {
+  const { count: total_items, rows: scores } = data;
+  const current_page = page ? +page : 0;
+  const total_pages = Math.ceil(total_items / limit);
+
+  return { total_items, scores, total_pages, current_page };
+};
+
 exports.question_show = async (req, res) => {
   const id = req.params.id;
   if (id) {
@@ -30,6 +45,7 @@ exports.question_show = async (req, res) => {
   }
 };
 
+
 exports.score_show = async (req, res) => {
   const id = req.params.id;
   if (id) {
@@ -46,12 +62,22 @@ exports.score_show = async (req, res) => {
       console.log('scoreShow findOne error : ', err);
     });
   } else {
-    await score.findAll({ include: user})
+    const { page, size, title } = req.query;
+    // var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+    const { limit, offset } = getPagination(page, size);
+
+    await score.findAndCountAll({
+      include: user,
+      // where: condition,
+      limit, offset
+    })
     .then( async (scores) => {
-      const resData = {
-        scores: scores,
-      };
+      // const resData = {
+      //   scores: scores,
+      // };
+      const resData = getPagingData(scores, page, limit);
       response.ok(res, "load scores data", resData);
+      // response.ok(res, "load scores data", resData);
     }).catch((err) => {
       console.log('scoreShow findAll error : ', err);
     });
