@@ -12,7 +12,6 @@ module.exports = function (app) {
 
   // create
   app.post("/api/payment/notification",
-    [authJwt.verifyToken],
     controller.payment_notification_listen
   );
 
