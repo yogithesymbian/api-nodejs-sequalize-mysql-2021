@@ -7,7 +7,7 @@ exports.getPagination = function (page, size) {
   return { limit, offset };
 };
 
-exports.getPagingData = function (datas, page, limit) {
+exports.getPagingData = function (datas, page, limit, resName) {
   const { count: total_items, rows: results } = datas;
   const current_page = page ? +page : 0;
   const total_pages = Math.ceil(total_items / limit);

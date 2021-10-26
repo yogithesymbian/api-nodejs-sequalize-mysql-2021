@@ -61,7 +61,7 @@ exports.score_show = async (req, res) => {
       limit, offset
     })
     .then( async (scores) => {
-      const resData = pagination.getPagingData(scores, page, limit, );
+      const resData = pagination.getPagingData(scores, page, limit);
       response.ok(res, "load scores data", resData);
     }).catch((err) => {
       console.log('scoreShow findAll error : ', err);
