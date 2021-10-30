@@ -34,14 +34,17 @@ exports.question_show = async (req, res) => {
   }
 };
 
-
 exports.score_show = async (req, res) => {
   const id = req.params.id;
   if (id) {
     await score.findOne({
       where: {
-        user_id: id
-      }
+        user_id: id,
+        delete_flag: null,
+      },
+        order: [
+            ['id', 'DESC'],
+        ],
     }).then((scores) => {
       const resData = {
         results: scores,
@@ -52,13 +55,16 @@ exports.score_show = async (req, res) => {
     });
   } else {
     const { page, size, title } = req.query;
-    // var condition = title ? { title: { [Op.like]: `%${title}%` } } : null;
+    var condition =  { delete_flag: null };
     const { limit, offset } = pagination.getPagination(page, size);
 
     await score.findAndCountAll({
       include: user,
-      // where: condition,
-      limit, offset
+      where: condition,
+      limit, offset,
+      order: [
+            ['id', 'DESC'],
+      ],
     })
     .then( async (scores) => {
       const resData = pagination.getPagingData(scores, page, limit);
@@ -75,7 +81,10 @@ exports.score_create = async (req, res) => {
     question_id: req.body.question_id,
     score: req.body.score
   }).then((score) => {
-    response.ok(res, "score created", 1);
+    const resData = {
+        results: [score],
+    };
+    response.ok(res, "score created", resData);
   }).catch((err) => {
     console.log('score create error :', err);
   });
